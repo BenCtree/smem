@@ -44,13 +44,15 @@ You can try these by running:
 
 $ ./smem eval_poly.txt 21
 
-This produces the result:
+Evaluates 4x^2 at x = 3. This produces the result:
+
 ![eval_poly](eval_poly.png?raw=true "Eval Poly Example") 
 
 And
 
 $ ./smem calc_mod.txt 7
 
-Which produces the result:
+Calculates 21 mod 6. This produces the result:
+
 ![calc_mod](calc_mod.png?raw=true "Calc Mod Example") 
 
