@@ -21,6 +21,8 @@
 // - <comment>: Any line beginning with a ';' is treated as a comment and ignored (not added to instruction array or evaluated)
 // Any blank line in the text file will also not be added to instruction array or evaluated
 
+# include "smem_instructions.h"
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -28,7 +30,7 @@
 // Do I need to include smem_stack.h here if including in smem_instructions?
 //# include "smem_stack.h"
 
-# include "smem_instructions.h"
+
 
 char** init_instruction_array(FILE* fp, int n)
 {

@@ -83,7 +83,7 @@ SNode* sub_check(char* op, SNode* head, int ip)
 	//head = stack_pop(head);
 	//free(second_node);
 	//head->value -= top_value
-	int result = top_value - second_value;
+	int result = second_value - top_value;
 	if (result < 0)
 	{
 		printf("ERROR: Negative subtraction result.\n");
@@ -123,6 +123,90 @@ SNode* siz_check(char* op, SNode* head, int ip)
 	return head;
 }
 
+SNode* jge(SNode* head, int counter, int comparison_val, int jump_index, int ip)
+{
+	if (counter >= comparison_val)
+	{
+		printf("Executed jump.\n");
+		head->ip = jump_index;
+		return head;
+	}
+	printf("No jump.\n");
+	head->ip = ip + 1;           	
+	printf("ip: %d\n", head->ip);	
+	return head;                 	
+}
+
+SNode* jle(SNode* head, int counter, int comparison_val, int jump_index, int ip)
+{
+	if (counter <= comparison_val)
+	{
+		printf("Executed jump.\n");
+		head->ip = jump_index;
+		return head;
+	}
+	printf("No jump.\n");
+	head->ip = ip + 1;           	
+	printf("ip: %d\n", head->ip);	
+	return head;                 	
+}
+
+SNode* jne(SNode* head, int counter, int comparison_val, int jump_index, int ip)
+{
+	if (counter != comparison_val)
+	{
+		printf("Executed jump.\n");
+		head->ip = jump_index;
+		return head;
+	}
+	printf("No jump.\n");
+	head->ip = ip + 1;           	
+	printf("ip: %d\n", head->ip);	
+	return head;                 	
+}
+
+SNode* jump_check(char* op, SNode* head, int ip, int condition)
+{
+	if (head->value == -1 || head->next == NULL || head->next->next == NULL)
+	{
+		printf("ERROR: Stack must contain at least three elements.\n");
+		head->ip = -1;
+        return head;
+	}
+	int jump_index = head->value;
+	SNode* top = head;
+	head = stack_pop(head);
+	free(top);
+	int comparison_val = head->value;
+	SNode* second = head;
+	head = stack_pop(head);
+	free(second);
+	int counter = head->value;
+	SNode* third = head;
+	head = stack_pop(head);
+	free(third);
+	if (condition > 0)
+	{
+		head = jge(head, counter, comparison_val, jump_index, ip);
+		return head;
+	}
+	if (condition < 0)
+	{
+		head = jle(head, counter, comparison_val, jump_index, ip);
+		return head;
+	}
+	if (condition == 0)
+	{
+		head = jne(head, counter, comparison_val, jump_index, ip);
+		return head;
+	}
+	//printf("No jump.\n");
+	//head->ip = ip + 1;
+	//printf("ip: %d\n", head->ip);
+	//return head;
+}
+
+/*
 SNode* jne_check(char* op, SNode* head, int ip)
 {
 	if (head->value == -1 || head->next == NULL || head->next->next == NULL)
@@ -152,13 +236,6 @@ SNode* jne_check(char* op, SNode* head, int ip)
 	printf("No jump.\n");
 	head->ip = ip + 1;
 	printf("ip: %d\n", head->ip);
-	return head;
-}
-
-/*
-SNode* ret_check(char* op, SNode* head, int ip)
-{
-	head->ip = -1;
 	return head;
 }
 */
@@ -193,18 +270,21 @@ SNode* parse_instruction(char* op, SNode* head, int ip)
    		SNode* node = siz_check(op, head, ip);
    		return node;
    	}
+	if (strcmp(op, "JGE") == 0)
+   	{
+   		SNode* node = jump_check(op, head, ip, 1);
+   		return node;
+   	}
+	if (strcmp(op, "JLE") == 0)
+   	{
+   		SNode* node = jump_check(op, head, ip, -1);
+   		return node;
+	}
 	if (strcmp(op, "JNE") == 0)
    	{
-   		SNode* node = jne_check(op, head, ip);
+   		SNode* node = jump_check(op, head, ip, 0);
    		return node;
    	}
-	/*
-	if (strcmp(op, "RET") == 0)
-   	{
-   		SNode* node = ret_check(op, head, ip);
-   		return node;
-   	}
-	*/
 	// If op is not recognised as a valid instruction
 	printf("ERROR: %s not a valid instruction.\n", op);
 	SNode* error_node = snode_init(-1, -1);

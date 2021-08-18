@@ -13,8 +13,12 @@ SNode* dup_check(char* op, SNode* head, int ip);
 SNode* add_check(char* op, SNode* head, int ip);
 SNode* sub_check(char* op, SNode* head, int ip);
 SNode* siz_check(char* op, SNode* head, int ip);
-SNode* jne_check(char* op, SNode* head, int ip);
-SNode* ret_check(char* op, SNode* head, int ip);
+//SNode* jne_check(char* op, SNode* head, int ip);
+SNode* jge(SNode* head, int counter, int comparison_val, int jump_index, int ip);
+SNode* jle(SNode* head, int counter, int comparison_val, int jump_index, int ip);
+SNode* jne(SNode* head, int counter, int comparison_val, int jump_index, int ip);
+//SNode* jump_check(char* op, SNode* head, int ip);
+SNode* jump_check(char* op, SNode* head, int ip, int condition);
 SNode* parse_instruction(char* op, SNode* head, int ip);
 
 # endif
