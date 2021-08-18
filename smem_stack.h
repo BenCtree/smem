@@ -8,7 +8,6 @@
 
 struct stack_node
 {
-	//int index;
 	int value;
 	int ip;
 	struct stack_node* next;
