@@ -6,7 +6,7 @@ smem reads instructions from a stack program text file, creates an indexable ins
 
 It supports a simple instruction set with 8 different kinds of instructions:
 
-- (integer): A positive integer from 0 to INT_MAX (+2,147,483,647). Pushes <integer> onto the stack
+- (integer): Pushes a positive integer from 0 to INT_MAX (+2,147,483,647) onto the stack
 
 - DUP: Pushes another copy of the top element onto the stack
 
@@ -14,7 +14,7 @@ It supports a simple instruction set with 8 different kinds of instructions:
 
 - SUB: Pops top two elements off stack, subtracts the first (top) from the second and pushes the result onto the stack
 
-- SIZ: Push current stack size onto stack (eg If stack has four elements, will push 4 onto stack, and new stack size will be five elements)
+- SIZ: Pushes current stack size onto stack (eg If stack has four elements, will push 4 onto stack, and new stack size will be five elements)
 
 - JGE: Pops top element i (jump index), second top element j (comparison value) and third top element k (counter) of the stack. If k is greater than or equal to j, jump to instruction in index i of the instruction array.
 
@@ -26,13 +26,31 @@ It supports a simple instruction set with 8 different kinds of instructions:
 
 - Any blank line in the text file will also not be added to instruction array or evaluated
 
-Quick Start:
+## Quick Start:
 
 Clone the repo to your machine where gcc and make are installed, navigate to the project folder and type:
 
 $ make
 
-To Run:
+## To Run:
 
 $ ./smem (stack_program.txt) (number of instructions)
+
+## Examples:
+
+There are two example stack programs included: eval_poly.txt, which evaluates a simple polynomial at a certain value and calc_mod.txt which calculates one number modulo another number.
+
+You can try these by running:
+
+$ ./smem eval_poly.txt 21
+
+This produces the result:
+![eval_poly](eval_poly.png?raw=true "Eval Poly Example") 
+
+And
+
+$ ./smem calc_mod.txt 7
+
+Which produces the result:
+![calc_mod](calc_mod.png?raw=true "Calc Mod Example") 
 
