@@ -1,0 +1,11 @@
+; Calculate 21 modulo 6 (7 instructions)
+
+; Subtract 6 from 21 once
+21
+6
+SUB
+; Dup result. If result is >= 6 jump back to instruction 1 (push 6 onto stack)
+DUP
+6
+1
+JGE

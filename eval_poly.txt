@@ -1,0 +1,34 @@
+; Evaluates polynomial 4x^2 at x = 3 (21 instructions)
+
+; Push 4 onto stack x times
+
+4
+DUP
+SIZ
+3
+1
+JNE
+
+; Add the x 4s pushed onto the stack together
+
+ADD
+SIZ
+1
+6
+JNE
+
+; Push the value of 4x onto stack x times in order to calculate 4x^2
+
+DUP
+SIZ
+3
+11
+JNE
+
+; Add the x 4x's pushed onto the stack together
+
+ADD
+SIZ
+1
+16
+JNE
